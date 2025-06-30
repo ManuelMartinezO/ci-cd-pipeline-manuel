@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: 💾 Cache node_modules
+      - name: Cache node_modules
         uses: actions/cache@v4
         with:
           path: node_modules
@@ -24,23 +24,23 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: ⚙️ Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: 🧪 Run tests
+      - name: Run tests
         run: npm test
 
-      - name: 🛠️ Build app
+      - name: Build app
         run: |
           mkdir -p build
           echo "Contenido generado por build" > build/index.html
 
-      - name: 📤 Upload build artifact
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: build-output
@@ -51,32 +51,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: 📥 Download build artifact
+      - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: build-output
           path: staging/
 
-      - name: 🚀 Simulated Deployment
+      - name: Simulated Deployment
         run: |
           echo "Desplegando desde staging/"
           ls staging
 
-      - name: ✅ Create GitHub Issue (success)
+      - name: Create GitHub Issue (success)
         if: success()
         uses: peter-evans/create-issue-from-file@v4
         with:
-          title: "✅ Deployment Successful"
+          title: "Deployment Successful"
           content-filepath: .github/workflows/messages/deploy-success.md
           labels: deployment, success
 
-      - name: ❌ Create GitHub Issue (failure)
+      - name: Create GitHub Issue (failure)
         if: failure()
         uses: peter-evans/create-issue-from-file@v4
         with:
-          title: "❌ Deployment Failed"
+          title: "Deployment Failed"
           content-filepath: .github/workflows/messages/deploy-fail.md
           labels: deployment, fail
