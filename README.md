@@ -1,34 +1,50 @@
-# 🚀 CI/CD Pipeline con GitHub Actions
+**INSTALACION**
 
-Este proyecto demuestra la implementación completa de un pipeline CI/CD usando GitHub Actions con una aplicación web basada en Express.js.
+npm install
 
-## 📋 Características
+npm start
 
-- ✅ **API REST** con Express.js
-- ✅ **Tests automatizados** (Jest + Supertest)
-- ✅ **Análisis de código** (ESLint)
-- ✅ **Pipeline CI/CD** con GitHub Actions
-- ✅ **Deployment automático**
-- ✅ **Notificaciones** automáticas
-- ✅ **Múltiples versiones** de Node.js
-- ✅ **Cobertura de código**
-- ✅ **Auditoría de seguridad**
+**TESTS**
 
-## 🏗️ Arquitectura del Pipeline
+npm test
 
-```mermaid
-graph TB
-    A[Push to Repository] --> B[Trigger CI Pipeline]
-    B --> C[Lint Code]
-    B --> D[Run Tests]
-    B --> E[Security Audit]
-    C --> F[Build Application]
-    D --> F
-    E --> F
-    F --> G[Upload Artifacts]
-    G --> H{Branch is main?}
-    H -->|Yes| I[Deploy to Staging]
-    H -->|No| J[End]
-    I --> K[Deploy to Production]
-    K --> L[Create Release]
-    L --> M[Send Notifications]
+**ESTRUCTURA**
+
+ci-cd-pipeline-manuel/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── config/
+│   ├── development.env        # Variables para entorno de desarrollo
+│   ├── production.env         # Variables para producción
+│   └── testing.env            # Variables para testing
+├── src/
+│   ├── app.js                 # Archivo principal de la aplicación Express
+│   ├── routes/
+│   │   └── calc.js            # Rutas para suma, resta, mult y división
+│   └── utils/
+│       └── calc.js            # Funciones de cálculo
+├── tests/
+│   ├── calc.test.js           # Tests unitarios para funciones matemáticas
+│   └── routes.test.js         # Tests de integración para rutas
+├── docs/
+│   
+├── .env                       # Archivo para seleccionar entorno activo
+├── .gitignore                 # Ignorar node_modules, .env, etc.
+├── package.json               # Dependencias, scripts y configuración general
+├── README.md                  # Descripción del proyecto
+
+
+**RUTAS**
+
+ http://localhost:3000/api/calc/suma?a=5&b=3 → 8
+
+ http://localhost:3000/api/calc/resta?a=10&b=2 → 8
+
+ http://localhost:3000/api/calc/mult?a=4&b=3 → 12
+
+ http://localhost:3000/api/calc/div?a=10&b=2 → 5
+
+ http://localhost:3000/api/calc/div?a=10&b=0 → error
+
+
