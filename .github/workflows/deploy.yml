@@ -1,0 +1,43 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: staging/
+
+      - name: Simulated Deploy
+        run: |
+          echo "Desplegando aplicación..."
+          ls staging
+          # Aquí puedes colocar comandos para subir a Heroku, Firebase, Vercel, etc.
+
+      - name: Create GitHub Issue (success)
+        if: success()
+        uses: peter-evans/create-issue-from-file@v4
+        with:
+          title: "Deployment Successful"
+          content-filepath: .github/workflows/messages/deploy-success.md
+          labels: deployment, success
+
+      - name: Create GitHub Issue (failure)
+        if: failure()
+        uses: peter-evans/create-issue-from-file@v4
+        with:
+          title: "Deployment Failed"
+          content-filepath: .github/workflows/messages/deploy-fail.md
+          labels: deployment, fail
