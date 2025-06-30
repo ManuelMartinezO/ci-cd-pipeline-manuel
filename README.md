@@ -21,3 +21,8 @@ npm test
  http://localhost:3000/api/calc/div?a=10&b=0 → error
 
 
+**URL DE LA API DESPLEGADA**
+
+https://ci-cd-pipeline-manuel2.onrender.com/
+
+Ejemplo de uso: https://ci-cd-pipeline-manuel2.onrender.com/api/calc/suma?a=5&b=3 → 8
